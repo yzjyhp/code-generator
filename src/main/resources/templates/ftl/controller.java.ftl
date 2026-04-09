@@ -45,7 +45,6 @@ public class ${table.controllerName} implements ${table.client}{
     * @param params
     * @return
     */
-    @Override
     @ApiOperation(value = "${table.comment}添加或者更新", notes = "${table.comment}添加或者更新")
     @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
     public ResponseString addOrUpdate(@RequestBody ${addParamsModel} params) {
@@ -58,7 +57,6 @@ public class ${table.controllerName} implements ${table.client}{
     * @param id
     * @return
     */
-    @Override
     @ApiOperation(value = "${table.comment}查询某条数据", notes = "${table.comment}查询某条数据")
     @RequestMapping(value = "/getEntityById", method = RequestMethod.POST)
     public ResponseSingleObjectModel<${detailModel}> getEntityById(@RequestParam("id") ${keyFlagType} id){
@@ -71,7 +69,6 @@ public class ${table.controllerName} implements ${table.client}{
     * @param id
     * @return
     */
-    @Override
     @ApiOperation(value = "${table.comment}删除某条数据", notes = "${table.comment}删除某条数据")
     @RequestMapping(value = "/delEntityById", method = RequestMethod.POST)
     public ResponseString delEntityById(@RequestParam("id") ${keyFlagType} id){
@@ -85,7 +82,6 @@ public class ${table.controllerName} implements ${table.client}{
     * @param params
     * @return
     */
-    @Override
     @ApiOperation(value = "${table.comment}列表查询", notes = "${table.comment}列表查询")
     @RequestMapping(value = "/searchList", method = RequestMethod.POST)
     public ResponsePageModel<${entityModel}> searchList(@RequestBody ${paramsModel} params) {
