@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -31,7 +33,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/${controllerMappingPath}/")
 @Api(value = "/${controllerMappingPath}/", description = "${table.comment}", tags = {"${table.capitalFirstName}"})
-public class ${table.controllerName} extends BaseController  implements ${table.client}{
+public class ${table.controllerName} implements ${table.client}{
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ${table.serviceName} ${serviceNameLower};
