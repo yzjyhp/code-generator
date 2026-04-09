@@ -1,0 +1,364 @@
+/**
+ * Copyright (c) 2011-2020, hubin (jobob@qq.com).
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package com.yzjyhp.generator.config.po;
+
+import com.yzjyhp.generator.config.MyBatisPlusPackageVal;
+import com.yzjyhp.generator.config.StrategyConfig;
+import com.yzjyhp.generator.config.converts.GeneratorStringUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * <p>
+ * 表信息，关联到当前字段信息
+ * </p>
+ *
+ * @author YangHu
+ * @since 2016/8/30
+ */
+public class TableInfo {
+
+    private boolean convert;
+    private String name;
+    private String comment;
+
+    private String originalName;
+    /**
+     * 带空格的表名称（首字母大写）
+     */
+    private String capitalFirstName;
+    private String entityName;
+    private String entityModel;
+    /**
+     * 列表搜索入参对象
+     */
+    private String paramsModel;
+    /**
+     * 添加或者更新入参对象
+     */
+    private String addParamsModel;
+    /**
+     * 详情对象
+     */
+    private String detailModel;
+    private String client;
+    private String mapperName;
+    private String xmlName;
+    private String serviceName;
+    private String serviceImplName;
+    private String controllerName;
+
+    private List<TableField> fields;
+    // 公共字段
+    private List<TableField> commonFields;
+    private List<String> importPackages = new ArrayList<>();
+    private List<String> importModelPackages = new ArrayList<>();
+    private String fieldNames;
+    private String fieldNamesCommon;
+
+    public boolean isConvert() {
+        return convert;
+    }
+
+    protected void setConvert(StrategyConfig strategyConfig) {
+        if (strategyConfig.containsTablePrefix(name)) {
+            // 包含前缀
+            this.convert = true;
+        } else if (strategyConfig.isCapitalModeNaming(name)) {
+            // 包含
+            this.convert = false;
+        } else {
+            // 转换字段
+            if (StrategyConfig.DB_COLUMN_UNDERLINE) {
+                // 包含大写处理
+                if (GeneratorStringUtils.containsUpperCase(name)) {
+                    this.convert = true;
+                }
+            } else if (!entityName.equalsIgnoreCase(name)) {
+                this.convert = true;
+            }
+        }
+    }
+
+    public void setConvert(boolean convert) {
+        this.convert = convert;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getEntityPath() {
+        StringBuilder ep = new StringBuilder();
+        ep.append(originalName.substring(0, 1).toLowerCase());
+        ep.append(originalName.substring(1));
+        return ep.toString();
+    }
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
+    }
+
+    public String getCapitalFirstName() {
+        return capitalFirstName;
+    }
+
+    public void setCapitalFirstName(String capitalFirstName) {
+        this.capitalFirstName = capitalFirstName;
+    }
+
+    public String getEntityName() {
+        return entityName;
+    }
+
+    public void setEntityName(StrategyConfig strategyConfig, String entityName) {
+        this.entityName = entityName;
+        this.setConvert(strategyConfig);
+    }
+
+    public String getEntityModel() {
+        return entityModel;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    public void setEntityModel(String entityModel) {
+        this.entityModel = entityModel;
+    }
+
+    public String getParamsModel() {
+        return paramsModel;
+    }
+
+    public void setParamsModel(String paramsModel) {
+        this.paramsModel = paramsModel;
+    }
+
+    public String getDetailModel() {
+        return detailModel;
+    }
+
+    public void setDetailModel(String detailModel) {
+        this.detailModel = detailModel;
+    }
+
+    public String getAddParamsModel() {
+        return addParamsModel;
+    }
+
+    public void setAddParamsModel(String addParamsModel) {
+        this.addParamsModel = addParamsModel;
+    }
+
+    public String getMapperName() {
+        return mapperName;
+    }
+
+    public void setMapperName(String mapperName) {
+        this.mapperName = mapperName;
+    }
+
+    public String getXmlName() {
+        return xmlName;
+    }
+
+    public void setXmlName(String xmlName) {
+        this.xmlName = xmlName;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public String getServiceImplName() {
+        return serviceImplName;
+    }
+
+    public void setServiceImplName(String serviceImplName) {
+        this.serviceImplName = serviceImplName;
+    }
+
+    public String getControllerName() {
+        return controllerName;
+    }
+
+    public void setControllerName(String controllerName) {
+        this.controllerName = controllerName;
+    }
+
+    public List<TableField> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<TableField> fields) {
+        if (fields != null && !fields.isEmpty()) {
+            this.fields = fields;
+            // 收集导入包信息
+            Set<String> pkgSet = new HashSet<>();
+            Set<String> pkgModelSet = new HashSet<>();
+            for (TableField field : fields) {
+                if (null != field.getColumnType() && null != field.getColumnType().getPkg()) {
+                    pkgSet.add(field.getColumnType().getPkg());
+                    pkgModelSet.add(field.getColumnType().getPkg());
+                }
+                if (field.isKeyFlag()) {
+                    // 主键
+                    if (field.isConvert() || field.isKeyIdentityFlag()) {
+                        pkgSet.add(MyBatisPlusPackageVal.TableId());
+                    }
+                    // 自增
+                    if (field.isKeyIdentityFlag()) {
+                        pkgSet.add(MyBatisPlusPackageVal.IdType());
+                    }
+                } else if (field.isConvert()) {
+                    // 普通字段
+                    pkgSet.add(MyBatisPlusPackageVal.TableField());
+                }
+                if (null != field.getFill()) {
+                    // 填充字段
+                    pkgSet.add(MyBatisPlusPackageVal.TableField());
+                    pkgSet.add(MyBatisPlusPackageVal.FieldFill());
+                }
+            }
+            if (!pkgSet.isEmpty()) {
+                this.importPackages = new ArrayList<>(Arrays.asList(pkgSet.toArray(new String[]{})));
+            }
+            if (!pkgModelSet.isEmpty()) {
+                this.importModelPackages = new ArrayList<>(Arrays.asList(pkgModelSet.toArray(new String[]{})));
+            }
+        }
+    }
+
+    public List<TableField> getCommonFields() {
+        return commonFields;
+    }
+
+    public void setCommonFields(List<TableField> commonFields) {
+        this.commonFields = commonFields;
+    }
+
+    public List<String> getImportPackages() {
+        return importPackages;
+    }
+
+    public void setImportPackages(String pkg) {
+        importPackages.add(pkg);
+    }
+
+    public List<String> getImportModelPackages() {
+        return importModelPackages;
+    }
+
+    public void setImportModelPackages(String pkg) {
+        importModelPackages.add(pkg);
+    }
+
+    /**
+     * 逻辑删除
+     */
+    public boolean isLogicDelete(String logicDeletePropertyName) {
+        for (TableField tableField : fields) {
+            if (tableField.getName().equals(logicDeletePropertyName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 转换filed实体为xmlmapper中的basecolumn字符串信息
+     *
+     * @return
+     */
+    public String getFieldNames() {
+        if (GeneratorStringUtils.isEmpty(fieldNames)) {
+            StringBuilder names = new StringBuilder();
+            for (int i = 0; i < fields.size(); i++) {
+                TableField fd = fields.get(i);
+                if (i == fields.size() - 1) {
+                    names.append(cov2col(fd));
+                } else {
+                    names.append(cov2col(fd)).append(", ");
+                }
+            }
+            fieldNames = names.toString();
+        }
+        return fieldNames;
+    }
+
+    public String getFieldNamesCommon() {
+        if (GeneratorStringUtils.isEmpty(fieldNamesCommon)) {
+            StringBuilder names = new StringBuilder();
+            for (int i = 0; i < fields.size(); i++) {
+                TableField fd = fields.get(i);
+                if (i == fields.size() - 1) {
+                    names.append(fd.getName());
+                } else {
+                    names.append(fd.getName()).append(", ");
+                }
+            }
+            fieldNamesCommon = names.toString();
+        }
+        return fieldNamesCommon;
+    }
+
+    public void setFieldNamesCommon(String fieldNamesCommon) {
+        this.fieldNamesCommon = fieldNamesCommon;
+    }
+
+    /**
+     * mapper xml中的字字段添加as
+     *
+     * @param field 字段实体
+     * @return 转换后的信息
+     */
+    private String cov2col(TableField field) {
+        if (null != field) {
+            return field.isConvert() ? field.getName() + " AS " + field.getPropertyName() : field.getName();
+        }
+        return GeneratorStringUtils.EMPTY;
+    }
+}
