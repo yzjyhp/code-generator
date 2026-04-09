@@ -78,7 +78,7 @@ public static void main(String[] args) {
             .baseResultMap(true)
             .myBatisPlusVersion(2)
             //MYSQL地址
-            .url("jdbc:mysql://qzd-db-dev.qizhidao.net:3306/my_db?useUnicode=true&characterEncoding=UTF8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2b8:00").username(
+            .url("jdbc:mysql://127.0.0.1.net:3306/my_db?useUnicode=true&characterEncoding=UTF8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2b8:00").username(
                     "root").password("123456")
             //父包名
             .parent("com.yzjyhp").moduleName("demo")
