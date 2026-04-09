@@ -12,10 +12,10 @@ import ${superServiceImplClassPackage};
 import ${pkg};
 </#list>
 import com.alibaba.fastjson.JSON;
-import com.qizhidao.common.base.response.ResponseSingleObjectModel;
-import com.qizhidao.common.base.response.ResponseString;
-import com.qizhidao.common.base.response.ResponsePageModel;
-import com.qizhidao.common.utils.PageModelHelpUtil;
+import com.yzjyhp.common.base.response.ResponseSingleObjectModel;
+import com.yzjyhp.common.base.response.ResponseString;
+import com.yzjyhp.common.base.response.ResponsePageModel;
+import com.yzjyhp.common.utils.PageModelHelpUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;

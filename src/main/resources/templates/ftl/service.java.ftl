@@ -9,9 +9,9 @@ import ${superServiceClassPackage};
 <#list serviceClassPackage as pkg>
     import ${pkg};
 </#list>
-import com.qizhidao.common.base.response.ResponseSingleObjectModel;
-import com.qizhidao.common.base.response.ResponsePageModel;
-import com.qizhidao.common.base.response.ResponseString;
+import com.yzjyhp.common.base.response.ResponseSingleObjectModel;
+import com.yzjyhp.common.base.response.ResponsePageModel;
+import com.yzjyhp.common.base.response.ResponseString;
 
 /**
  * <p>
