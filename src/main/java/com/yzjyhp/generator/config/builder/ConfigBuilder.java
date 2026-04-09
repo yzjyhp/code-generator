@@ -115,7 +115,6 @@ public class ConfigBuilder {
      * 注入配置信息
      */
     private InjectionConfig injectionConfig;
-    boolean v3;
 
     /**
      * <p>
@@ -136,7 +135,6 @@ public class ConfigBuilder {
         } else {
             this.globalConfig = globalConfig;
         }
-        v3 = globalConfig.getMyBatisPlusVersion() == 3;
         // 模板配置
         if (null == template) {
             this.template = new TemplateConfig();
@@ -157,8 +155,6 @@ public class ConfigBuilder {
         } else {
             this.strategyConfig = strategyConfig;
         }
-
-
         handlerStrategy(this.strategyConfig);
     }
 
@@ -397,29 +393,17 @@ public class ConfigBuilder {
      */
     private void processTypes(StrategyConfig config) {
         if (StringUtils.isEmpty(config.getSuperServiceClass())) {
-            if (v3) {
-                superServiceClass = MyBatisPlusPackageValV3.IService;
-            } else {
-                superServiceClass = MyBatisPlusPackageValV2.IService;
-            }
+            superServiceClass = MyBatisPlusPackageVal.IService();
         } else {
             superServiceClass = config.getSuperServiceClass();
         }
         if (StringUtils.isEmpty(config.getSuperServiceImplClass())) {
-            if (v3) {
-                superServiceImplClass = MyBatisPlusPackageValV3.ServiceImpl;
-            } else {
-                superServiceImplClass = MyBatisPlusPackageValV2.ServiceImpl;
-            }
+            superServiceImplClass = MyBatisPlusPackageVal.ServiceImpl();
         } else {
             superServiceImplClass = config.getSuperServiceImplClass();
         }
         if (StringUtils.isEmpty(config.getSuperMapperClass())) {
-            if (v3) {
-                superMapperClass = MyBatisPlusPackageValV3.BaseMapper;
-            } else {
-                superMapperClass = MyBatisPlusPackageValV2.BaseMapper;
-            }
+            superMapperClass = MyBatisPlusPackageVal.BaseMapper();
         } else {
             superMapperClass = config.getSuperMapperClass();
         }

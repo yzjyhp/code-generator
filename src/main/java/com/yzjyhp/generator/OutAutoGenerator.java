@@ -34,8 +34,8 @@ import org.slf4j.LoggerFactory;
  * @since 2016-08-30
  */
 
-public class QzdAutoGenerator {
-    private static final Logger logger = LoggerFactory.getLogger(QzdAutoGenerator.class);
+public class OutAutoGenerator {
+    private static final Logger logger = LoggerFactory.getLogger(OutAutoGenerator.class);
 
     /******通用配置信息************/
     /**
@@ -122,7 +122,7 @@ public class QzdAutoGenerator {
     private String[] tablePrefix;
 
     // 构造器尽量缩小范围
-    private QzdAutoGenerator() {
+    private OutAutoGenerator() {
     }
 
     public String getOutputDir() {
@@ -266,7 +266,7 @@ public class QzdAutoGenerator {
     /**
      * 初始化配置数据数据
      */
-    public QzdAutoGenerator init() {
+    public OutAutoGenerator init() {
         //1、代码生成器
         mpg = new AutoGenerator();
         //2、全局配置
@@ -362,10 +362,10 @@ public class QzdAutoGenerator {
      * 构建对象
      */
     public static class Builder {
-        private QzdAutoGenerator target;
+        private OutAutoGenerator target;
 
         public Builder() {
-            target = new QzdAutoGenerator();
+            target = new OutAutoGenerator();
         }
 
         public Builder outputDir(String outputDir) {
@@ -453,7 +453,7 @@ public class QzdAutoGenerator {
             return this;
         }
 
-        public QzdAutoGenerator build() {
+        public OutAutoGenerator build() {
             return target;
         }
     }

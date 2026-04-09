@@ -33,7 +33,12 @@ import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/${controllerMappingPath}/")
 @Api(value = "/${controllerMappingPath}/", description = "${table.comment}", tags = {"${table.capitalFirstName}"})
+<#if client>
 public class ${table.controllerName} implements ${table.client}{
+<#else>
+public class ${table.controllerName}{
+</#if>
+
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 

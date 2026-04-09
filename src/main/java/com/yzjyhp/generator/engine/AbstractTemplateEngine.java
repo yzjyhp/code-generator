@@ -24,6 +24,7 @@ import com.yzjyhp.generator.config.converts.GeneratorStringUtils;
 import com.yzjyhp.generator.config.po.TableField;
 import com.yzjyhp.generator.config.po.TableInfo;
 import com.yzjyhp.generator.config.rules.NamingStrategy;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -265,6 +266,13 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("versionFieldName", config.getStrategyConfig().getVersionFieldName());
         objectMap.put("activeRecord", globalConfig.isActiveRecord());
         objectMap.put("kotlin", globalConfig.isKotlin());
+        String outputClientDir=globalConfig.getOutputClientDir();
+        if(StringUtils.isNotEmpty(outputClientDir)){
+            objectMap.put("client", true);
+        }else {
+            objectMap.put("client", false);
+        }
+
         objectMap.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         objectMap.put("table", tableInfo);
         objectMap.put("enableCache", globalConfig.isEnableCache());

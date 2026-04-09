@@ -15,7 +15,7 @@ public class AutoGeneratorTest {
      * @param args
      */
     public static void main(String[] args) {
-        new QzdAutoGenerator.Builder()
+        new OutAutoGenerator.Builder()
                 //生成文件的输出目录JAVA类地址（磁盘路径：/my-project/my-project-server/src/main/java）
                 .outputDir("/my-project/my-project-server/src/main/java")
                 //XML生成文件的输出目录（XML文档生成地址）
@@ -34,7 +34,7 @@ public class AutoGeneratorTest {
                 .baseResultMap(true)
                 .myBatisPlusVersion(2)
                 //MYSQL地址
-                .url("jdbc:mysql://qzd-db-dev.qizhidao.net:3306/my_db?useUnicode=true&characterEncoding=UTF8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2b8:00").username(
+                .url("jdbc:mysql://127.0.0.1:3306/my_db").username(
                         "root").password("123456")
                 //父包名
                 .parent("com.yzjyhp").moduleName("demo")

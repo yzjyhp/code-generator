@@ -44,7 +44,7 @@ MyBatisPlus的版本为3.X设置如下<br/>
 ### 可配置字段解释
 outputDir：生成文件的输出目录JAVA类地址（磁盘路径：D:/wzqzd-sms-server/src/main/java） <br/>
 outputXmlDir：XML生成文件的输出目录（XML文档生成地址）<br/>
-outputClientDir：Client生成文件的输出目录（@FeignClient类生成地址）<br/>
+outputClientDir：Client生成文件的输出目录（@FeignClient类生成地址）,当这个为空的时候controller不会加实现类<br/>
 applicationName：项目名称（@FeignClient类上应用名称）<br/>
 author：开发人员（类注释上面开发人员名称）<br/>
 myBatisPlusVersion: MyBatisPlus的版本(当前只支持2或者3)<br/>
