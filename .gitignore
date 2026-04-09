@@ -16,7 +16,6 @@ target/
 */*.iml
 *.ipr
 *.log
-QZD_LOG_PATH_IS_UNDEFINED/
 
 ### NetBeans ###
 nbproject/private/
